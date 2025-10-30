@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layoutBase(~{::contenido}, ~{::scripts})">
+
+<div th:fragment="contenido">
+	<div class="card shadow-lg">
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-10">
+					<h1 class="card-title">Listado de boletas</h1>
+				</div>
+
+				<div class="col-md-2">
+					<a th:href="@{/boleta/nuevo}" class="btn btn-success w-100">
+						<i class="fa-solid fa-plus"></i>
+						Nueva
+					</a>
+				</div>
+			</div>
+			<table id="tbl-boleta" class="table table-hover table-striped table-borderless align-middle">
+				<thead class="table-dark text-center">
+					<tr>
+						<th>Número</th>
+						<th>Fecha de registro</th>
+						<th>Usuario</th>
+						<th>Rol</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody class="table-secondary">
+					<!--<tr th:each="item : ${lstBoleta}">
+						<td th:text="${item.numBoleta}" class="text-center"></td>
+						<td th:text="${item.fecha}" class="text-center"></td>
+						<td th:text="${item.usuario.fullUsuario}"></td>
+						<td th:text="${item.usuario.tipo.descripcion}"></td>
+						<td th:text="|S/. ${#numbers.formatDecimal(item.total,1,2,'POINT')}|" class="text-end">
+						</td>
+					</tr>-->
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<th:block th:utext="${toast}"></th:block>
+	<th:block th:fragment="scripts">
+		<script>
+			$(function () {
+				$('#tbl-boleta').DataTable({
+					language: {
+						url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/es-ES.json',
+						search: "Filtrar: ",
+					},
+					pageLength: 10,
+					lengthMenu: [5, 10, 25, 50],
+					ordering: true,
+					order: [ [0, 'desc'] ],
+					responsive: true,
+					columnDefs: [
+						{targets: [2, 3], orderable: false},
+						{targets: [0, 1, 4], searchable: false}
+					]
+				});
+			});
+		</script>
+	</th:block>
+</div>
+
+</html>

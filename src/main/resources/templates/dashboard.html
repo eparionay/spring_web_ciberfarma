@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layoutBase(~{::contenido}, ~{::scripts})">
+
+<th:block th:fragment="contenido">
+	<div class="row">
+		<!-- Anulados -->
+		<div class="col-xl-3 col-sm-6 mb-2">
+			<div class="card h-100 d-flex flex-column justify-content-center">
+				<div class="card-body p-3 d-flex flex-column justify-content-between h-100">
+					<div class="row h-100">
+						<div class="col-8 d-flex flex-column justify-content-center">
+							<div class="numbers">
+								<p class="text-sm mb-0 text-uppercase font-weight-bold text-danger">Productos</p>
+								<h5 class="font-weight-bolder text-dark">0</h5>
+								<p class="mb-0 text-muted text-sm">
+									Total de productos disponibles.
+								</p>
+							</div>
+						</div>
+						<div class="col-4 d-flex align-items-center justify-content-center">
+							<div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
+								<i class="fas fa-ban text-lg opacity-10" aria-hidden="true"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Pendientes -->
+		<div class="col-xl-3 col-sm-6 mb-2">
+			<div class="card h-100 d-flex flex-column justify-content-center">
+				<div class="card-body p-3 d-flex flex-column justify-content-between h-100">
+					<div class="row h-100">
+						<div class="col-8 d-flex flex-column justify-content-center">
+							<div class="numbers">
+								<p class="text-sm mb-0 text-uppercase font-weight-bold text-warning">Boletas</p>
+								<h5 class="font-weight-bolder text-dark">0</h5>
+								<p class="mb-0 text-muted text-sm">
+									Cantidad de boletas generadas del mes actual.
+								</p>
+							</div>
+						</div>
+						<div class="col-4 d-flex align-items-center justify-content-center">
+							<div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
+								<i class="fas fa-hourglass-half text-lg opacity-10" aria-hidden="true"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Instalados -->
+		<div class="col-xl-3 col-sm-6 mb-2">
+			<div class="card h-100 d-flex flex-column justify-content-center">
+				<div class="card-body p-3 d-flex flex-column justify-content-between h-100">
+					<div class="row h-100">
+						<div class="col-8 d-flex flex-column justify-content-center">
+							<div class="numbers">
+								<p class="text-sm mb-0 text-uppercase font-weight-bold text-success">Ventas</p>
+								<h5 class="font-weight-bolder text-dark">0</h5>
+								<p class="mb-0 text-muted text-sm">
+									Venta total del mes
+								</p>
+							</div>
+						</div>
+						<div class="col-4 d-flex align-items-center justify-content-center">
+							<div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
+								<i class="fas fa-check-circle text-lg opacity-10" aria-hidden="true"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Observados -->
+		<div class="col-xl-3 col-sm-6 mb-2">
+			<div class="card h-100 d-flex flex-column justify-content-center">
+				<div class="card-body p-3 d-flex flex-column justify-content-between h-100">
+					<div class="row h-100">
+						<div class="col-8 d-flex flex-column justify-content-center">
+							<div class="numbers">
+								<p class="text-sm mb-0 text-uppercase font-weight-bold text-primary">Usuarios</p>
+								<h5 class="font-weight-bolder text-dark">0</h5>
+								<p class="mb-0 text-muted text-sm">
+									Usuario con más venta del mes.
+								</p>
+							</div>
+						</div>
+						<div class="col-4 d-flex align-items-center justify-content-center">
+							<div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+								<i class="fas fa-eye text-lg opacity-10" aria-hidden="true"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-lg-7 mb-lg-0 mb-4">
+			<div class="card z-index-2 h-100">
+				<div class="card-header pb-0 pt-3 bg-transparent">
+					<h6>
+						<i class="fas fa-chart-line me-1"></i>
+						Boletas generadas por mes
+					</h6>
+					<p class="text-sm mb-0">
+						<span class="font-weight-bold">Resumen</span>
+					</p>
+				</div>
+				<div class="card-body p-3">
+					<div class="chart">
+						<canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-5">
+			<div class="card card-carousel overflow-hidden h-100 p-0">
+				<div id="carousel" class="carousel slide" data-bs-ride="carousel" style="height: 420px;">
+				  <div class="carousel-inner border-radius-lg h-100" style="height: 100%;">
+
+				    <!-- Slide 1 (ACTIVE) -->
+				    <div class="carousel-item h-100 position-relative active"
+				         th:style="|background-image: url('@{/assets/img/carousel-1.jpg}'); background-size: cover; background-position: center;|"
+				         style="height: 100%;">
+				      <div class="carousel-overlay-gradient"></div>
+				      <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
+				        <div class="icon icon-shape icon-sm bg-dark text-center border-radius-md mb-3">
+				          <i class="fas fa-chart-bar opacity-10"></i>
+				        </div>
+				        <h5 class="text-white mb-1">Reportes y estadísticas</h5>
+				        <p>Visualiza indicadores clave por estado o responsable.</p>
+				      </div>
+				    </div>
+
+				    <!-- Slide 2 -->
+				    <div class="carousel-item h-100 position-relative"
+				         th:style="|background-image: url('@{/assets/img/carousel-2.jpg}'); background-size: cover; background-position: center;|"
+				         style="height: 100%;">
+				      <div class="carousel-overlay-gradient"></div>
+				      <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
+				        <div class="icon icon-shape icon-sm bg-dark text-center border-radius-md mb-3">
+				          <i class="fas fa-clock opacity-10"></i>
+				        </div>
+				        <h5 class="text-white mb-1">Seguimiento en tiempo real</h5>
+				        <p>Consulta el estado de cada registro</p>
+				      </div>
+				    </div>
+				  </div>
+
+				  <!-- Controles -->
+				  <button class="carousel-control-prev me-3" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1);"></span>
+				    <span class="visually-hidden">Anterior</span>
+				  </button>
+				  <button class="carousel-control-next me-3" type="button" data-bs-target="#carousel" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1);"></span>
+				    <span class="visually-hidden">Siguiente</span>
+				  </button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Registros por distrito -->
+	<div class="row mt-4">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header pb-0 p-3">
+					<div class="d-flex justify-content-between">
+						<h6 class="mb-2"><i class="fas fa-city me-1"></i> Cantidad de productos vendidos por categoría
+						</h6>
+					</div>
+				</div>
+				<div class="table-responsive">
+					<table class="table align-items-center">
+						<tbody>
+							<tr>
+								<td class="w-30">
+									<div class="d-flex px-2 py-1 align-items-center">
+										<div class="ms-1">
+											<p class="text-xs font-weight-bold mb-0">Categoría</p>
+											<h6 class="text-sm mb-0">Pastillas</h6>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="text-center">
+										<p class="text-xs font-weight-bold mb-0">Cantidad</p>
+										<h6 class="text-sm mb-0">0</h6>
+									</div>
+								</td>
+
+								<td class="w-30">
+									<div class="d-flex px-2 py-1 align-items-center">
+										<div class="ms-1">
+											<p class="text-xs font-weight-bold mb-0">Categoría</p>
+											<h6 class="text-sm mb-0">Jarabe</h6>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="text-center">
+										<p class="text-xs font-weight-bold mb-0">Cantidad</p>
+										<h6 class="text-sm mb-0">0
+										</h6>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<th:block th:utext="${alert}"></th:block>
+</th:block>
+
+<th:block th:fragment="scripts">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+	<script th:inline="javascript">
+		let datosPorMes = /*[[${datosPorMes}]]*/[];
+		let labels = datosPorMes.map(d => {
+			const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+			return meses[d.mes - 1];
+		});
+		let valores = datosPorMes.map(d => d.cantidad);
+	</script>
+
+	<script>
+		var ctx1 = document.getElementById("chart-line").getContext("2d");
+
+		var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+		gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+		gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+		gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+
+		new Chart(ctx1, {
+			type: "line",
+			data: {
+				labels: labels,
+				datasets: [{
+					label: "Registros",
+					tension: 0.4,
+					borderWidth: 3,
+					pointRadius: 4,
+					borderColor: "#5e72e4",
+					backgroundColor: gradientStroke1,
+					fill: true,
+					data: valores,
+					maxBarThickness: 6
+				}],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				plugins: {
+					legend: {display: false}
+				},
+				interaction: {
+					intersect: false,
+					mode: 'index',
+				},
+				scales: {
+					y: {
+						grid: {
+							drawBorder: false,
+							drawOnChartArea: true,
+							borderDash: [5, 5]
+						},
+						ticks: {
+							padding: 10,
+							color: '#252f40',
+							font: {size: 12}
+						}
+					},
+					x: {
+						grid: {
+							display: false
+						},
+						ticks: {
+							color: '#252f40',
+							padding: 10,
+							font: {size: 12}
+						}
+					}
+				},
+			},
+		});
+	</script>
+</th:block>
+
+</html>

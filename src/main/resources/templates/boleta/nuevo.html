@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layoutBase(~{::contenido}, ~{::scripts})">
+
+<div th:fragment="contenido">
+
+	<div class="card shadow-lg">
+		<div class="card-body">
+
+			<form class="row g-3" th:action="@{/boleta/registrar}" method="post">
+				<div class="col-md-10">
+					<h1 class="m-0">Emisión de boleta</h1>
+				</div>
+
+				<div class="col-md-2">
+					<button type="submit" class="btn btn-primary w-100">
+						Registrar
+						<i class="fa-solid fa-floppy-disk"></i>
+					</button>
+				</div>
+
+				<!-- Información de la Boleta -->
+				<div class="card mb-4">
+					<div class="card-body">
+						<p class="m-0">
+							<strong>Fecha:</strong> <span
+								th:text="${#dates.format(#dates.createNow(), 'dd/MM/yyyy')}"></span>
+						</p>
+					</div>
+				</div>
+			</form>
+
+			<!-- Sección de Selección de Productos -->
+			<div class="card mb-4">
+				<div class="card-body">
+
+					<!-- Botón para abrir el modal -->
+					<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalProductos">
+						<i class="fa-solid fa-magnifying-glass"></i> Seleccionar Producto
+					</button>
+
+					<!-- Producto Seleccionado -->
+					<form novalidate th:action="@{/boleta/agregar}" method="post" th:object="${productoSeleccionado}"
+						class="needs-validation">
+						<div class="row g-2 align-items-end">
+							<div class="col-md-2">
+								<label>Código</label>
+								<input type="text" class="form-control" th:field="*{idProducto}" readonly>
+							</div>
+							<div class="col-md-4">
+								<label>Nombre</label>
+								<input type="text" class="form-control" th:field="*{descripcion}" readonly>
+							</div>
+							<div class="col-md-2">
+								<label>Precio</label>
+								<input type="text" class="form-control" th:field="*{precio}">
+							</div>
+							<div class="col-md-2">
+								<label>Cantidad</label>
+								<input type="number" class="form-control" th:field="*{cantidad}">
+							</div>
+							<div class="col-md-2 align-items-end">
+								<button class="btn btn-success">
+									<i class="fa-solid fa-plus"></i> Agregar
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<!-- Tabla de Detalle de Productos -->
+			<div class="card">
+				<div class="card-body">
+					<h5>Detalle de Productos</h5>
+					<div class="table-responsive">
+						<table class="table table-bordered align-middle">
+							<thead class="table-dark">
+								<tr>
+									<th>Código</th>
+									<th>Nombre</th>
+									<th>Precio</th>
+									<th>Cantidad</th>
+									<th>Subtotal</th>
+									<th>Acciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="item : ${lstSeleccionado}">
+									<td th:text="${item.idProducto}"></td>
+									<td th:text="${item.descripcion}"></td>
+									<td th:text="${item.precio}"></td>
+									<td th:text="${item.cantidad}"></td>
+									<td th:text="${item.subtotal}"></td>
+									<td>
+										<form th:action="@{/boleta/quitar}" method="post">
+											<input type="hidden" name="idProducto" th:value="${item.idProducto}" />
+											<button class="btn btn-danger btn-sm">
+												<i class="fa-solid fa-trash"></i> Quitar
+											</button>
+										</form>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Fragmento Modal de Selección de Productos -->
+	<div th:replace="fragments/modal-productos :: modal-productos(${productos}, 'modalProductos')"></div>
+
+	<th:block th:utext="${alert}"></th:block>
+</div>
+
+
+<th:block th:fragment="scripts">
+	<script>
+		$(document).on('click', '.btnSeleccionar', function () {
+			// 1) Lee atributos (recomendado en kebab-case):
+			const idProducto = $(this).data('id-producto');
+			const descripcion = $(this).data('descripcion');
+			const precio = $(this).data('precio');
+
+			// 2) Pasa valores a tus inputs:
+			$('#idProducto').val(idProducto);
+			$('#descripcion').val(descripcion);
+			$('#precio').val(precio);
+			$('#cantidad').val(1);
+
+			// 3) Cierra el modal con la API de BS5
+			const modalEl = document.getElementById('modalProductos');
+			const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+			modal.hide();
+		});
+	</script>
+
+	<!-- Script de inicialización -->
+	<script>
+		$(document).ready(function () {
+			const idTabla = '#tblSelectorProductos';
+			if ($.fn.DataTable.isDataTable(idTabla)) {
+				$(idTabla).DataTable().destroy();
+			}
+			$('#tblSelectorProductos').DataTable({
+				lengthMenu: [5, 10],
+				pageLength: 5,
+				language: {
+					url: 'https://cdn.datatables.net/plug-ins/2.3.4/i18n/es-ES.json',
+					search: "Filtro general :"
+				}
+			});
+		});
+	</script>
+</th:block>
+
+</html>

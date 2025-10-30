@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:fragment="layoutBase(contenido, scripts)">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="icon" type="image/png" href="https://www.entel-ofertas.cl/assets/entel-logo.e51f40b3.png">
+	<title>Ejemplos Prof. Ernesto Arbulú</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<link href="/css/index.css" rel="stylesheet" />
+	<!--Estilos para el dashboard-->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/argon-dashboard/2.0.4/css/argon-dashboard.min.css"
+		rel="stylesheet">
+	<!-- css para el datatable -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.bootstrap5.min.css">
+</head>
+
+<body class="g-sidenav-show bg-gray-100">
+	<div class="min-height-300 bg-dark position-absolute w-100"></div>
+	<aside
+		class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
+		id="sidenav-main">
+		<div class="sidenav-header">
+			<i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 end-0 top-0 d-none d-xl-none"
+				aria-hidden="true" id="iconSidenav"></i>
+			<a class="navbar-brand m-0 text-center" th:href="@{/dashboard}">
+				<img th:src="@{/assets/img/ciberfarma_logo.jpg}" width="150" height="150" class="navbar-brand-img h-100"
+					alt="main_logo">
+			</a>
+		</div>
+		<hr class="horizontal dark mt-5">
+		<div class="collapse navbar-collapse w-auto" id="sidenav-scrollbar">
+			<ul class="navbar-nav">
+				<div>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/boleta/listado}">
+							<div class="sidebar-icon-box ms-2 me-3">
+								<i class="fa-solid fa-file-lines text-dark text-sm opacity-10"></i>
+							</div>
+							<span class="nav-link-text ms-1">Boletas</span>
+						</a>
+					</li>
+				</div>
+
+				<div>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/producto/listado}">
+							<div class="sidebar-icon-box ms-2 me-3">
+								<i class="fa-solid fa-layer-group text-dark text-sm opacity-10"></i>
+							</div>
+							<span class="nav-link-text ms-1">Productos</span>
+						</a>
+					</li>
+				</div>
+				<div>
+					<li class="nav-item">
+						<a class="nav-link">
+							<div class="sidebar-icon-box ms-2 me-3">
+								<i class="fa-solid fa-users text-dark text-sm opacity-10"></i>
+							</div>
+							<span class="nav-link-text ms-1">Usuarios</span>
+						</a>
+					</li>
+				</div>
+				<li class="nav-item mt-3">
+					<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Cuenta</h6>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link">
+						<div class="sidebar-icon-box ms-2 me-3">
+							<i class="fa-solid fa-user text-dark text-sm opacity-10"></i>
+						</div>
+						<span class="nav-link-text ms-1">Perfil</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-danger" th:href="@{/cerrar-sesion}">
+						<div class="sidebar-icon-box ms-2 me-3">
+							<i class="fa-solid fa-arrow-right-from-bracket text-danger text-sm"></i>
+						</div>
+						<span class="nav-link-text ms-1">Cerrar sesión</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</aside>
+
+	<main class="main-content position-relative border-radius-lg min-vh-100">
+		<!-- Navbar -->
+		<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+			data-scroll="false">
+			<div class="container-fluid py-1 px-3">
+
+				<!-- Grupo izquierdo: botón + breadcrumb alineados -->
+				<div class="d-flex align-items-center gap-2">
+					<button class="btn btn-link text-white p-0" id="iconNavbarSidenav" type="button"
+						aria-label="Toggle sidebar">
+						<i class="fa-solid fa-bars fa-lg"></i>
+					</button>
+
+					<nav aria-label="breadcrumb" class="d-flex align-items-center">
+						<ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0">
+							<li class="breadcrumb-item text-sm">
+								<a class="opacity-5 text-white" th:href="@{/dashboard}">Dashboard</a>
+							</li>
+						</ol>
+						<h6 class="font-weight-bolder text-white mb-0 ms-2" th:text="${accion}"></h6>
+					</nav>
+				</div>
+
+				<!-- Empuja el buscador a la derecha -->
+				<div class="ms-auto d-flex align-items-center">
+					<div class="input-group">
+						<span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+						<input type="text" class="form-control" placeholder="Buscar...">
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<!-- End Navbar -->
+
+		<!-- Content -->
+		<div class="container-fluid py-3 px-3" th:insert="~{::contenido}"></div>
+	</main>
+
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scrollbar/8.8.4/smooth-scrollbar.min.js"></script>
+	<!-- js para el datatable -->
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.min.js"></script>
+
+	<!-- script opcional -->
+	<th:block th:replace="${scripts} ?: ~{}"></th:block>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var btn = document.getElementById('iconNavbarSidenav');
+			if (!btn) return;
+
+			btn.addEventListener('click', function () {
+				document.body.classList.toggle('sidebar-collapsed');
+			});
+		});
+	</script>
+</body>
+
+</html>
